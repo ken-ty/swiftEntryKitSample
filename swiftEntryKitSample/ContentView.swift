@@ -10,78 +10,171 @@ import SwiftEntryKit
 
 struct ContentView: View {
     
-//    private func getBottomAlertAttributes() -> EKAttributes{
-//        var attributes = EKAttributes.bottomFloat
-//        attributes.hapticFeedbackType = .success
-//        attributes.displayDuration = .infinity
-//        attributes.entryBackground = .color(color: .white)
-//        attributes.shadow = .active(with: .init(color: .black, opacity: 0.3, radius: 8))
-//        attributes.screenInteraction = .dismiss
-//        attributes.entryInteraction = .absorbTouches
-//        attributes.scroll = .enabled(swipeable: true, pullbackAnimation: .jolt)
-//        attributes.roundCorners = .all(radius: 25)
-//        attributes.entranceAnimation = .init(translate: .init(duration: 0.7, spring: .init(damping: 1, initialVelocity: 0)),
-//                                             scale: .init(from: 1.05, to: 1, duration: 0.4, spring: .init(damping: 1, initialVelocity: 0)))
-//        attributes.exitAnimation = .init(translate: .init(duration: 0.2))
-//        attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.2)))
-//        attributes.positionConstraints.verticalOffset = 10
-//        attributes.positionConstraints.size = .init(width: .offset(value: 20), height: .intrinsic)
-//        attributes.positionConstraints.maxSize = .init(width: .constant(value: UIScreen.main.bounds.width), height: .intrinsic)
-//        attributes.statusBar = .dark
-//        return attributes
-//    }
+    // default値
+    static let defaultFontSize: Int = 17;
+    static let defaultFontColor: EKColorPreset = ekColorPreset.first!
+    static let defaultFontWeight: UIFont.Weight = .medium
+
+    // 基本設定
+    @State var inputTitle = "Title"
+    @State var inputMessage = "Message"
     
-    private var items = [
-        ButtonItem(title: "1", action: {
-            print("hod")
-        }),
-        ButtonItem(title: "2", action: {
-            // Generate top floating entry and set some properties
-            var attributes = EKAttributes.topFloat
-            attributes.entryBackground = .gradient(gradient: .init(colors: [EKColor(.red), EKColor(.green)], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1)))
-            attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
-            attributes.shadow = .active(with: .init(color: .black, opacity: 0.5, radius: 10, offset: .zero))
-            attributes.statusBar = .dark
-            attributes.scroll = .enabled(swipeable: true, pullbackAnimation: .jolt)
-            let minEdge = min(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
-            attributes.positionConstraints.maxSize = .init(width: .constant(value: minEdge), height: .intrinsic)
-            
-            let titleText = "hoge"
-            let titleFont =  UIFont.systemFont(ofSize: 17, weight: .medium)
-            //            let titleFont =  UIFont(name: "Barlow-Regular", size: 17)!
-            let textColor =  EKColor.black
-            let title = EKProperty.LabelContent(text: titleText, style: .init(font: titleFont, color: textColor))
-            
-            let descText = titleText
-            let descFont =  titleFont
-            let description = EKProperty.LabelContent(text: descText, style: .init(font: descFont, color: textColor))
-            
-            let imageName = "sample.png"
-            
-            let image = EKProperty.ImageContent(image: UIImage(named: imageName)!, size: CGSize(width: 35, height: 35))
-            let simpleMessage = EKSimpleMessage(image: image, title: title, description: description)
-            let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
-
-            let contentView = EKNotificationMessageView(with: notificationMessage)
-            SwiftEntryKit.display(entry: contentView, using: attributes)
-
-        }),
-    ]
+    // 詳細設定
+    @State var selectionEKAttributePreset: EKAttributePreset = ekAttributesPresets.first!
+    @State var selectionTitleFontSize: Int = defaultFontSize
+    @State var selectionTitleFontColor: EKColorPreset = defaultFontColor
+    @State var selectionTitleFontWeight: UIFont.Weight = defaultFontWeight
+    @State var selectionMessageFontSize: Int = defaultFontSize
+    @State var selectionMessageFontColor: EKColorPreset = defaultFontColor
+    @State var selectionMessageFontWeight: UIFont.Weight = defaultFontWeight
+    @State var isExpanded: Bool = false
+    
     var body: some View {
-        
         VStack {
-            ForEach(items, id: \.self.title) { item in
-                Button(item.title){
-                    item.action()
-                }
-                    .buttonStyle(.borderedProminent)
+            List {
+                Section(content: {
+                    TextField("Title", text: $inputTitle)
+                    TextField("Message", text: $inputMessage)
+                    Picker("Attribute Preset", selection: $selectionEKAttributePreset) {
+                        ForEach(ekAttributesPresets, id: \.self) { attribute in
+                            Text(attribute.name).tag(attribute)
+                        }
+                    }
+                }, header: {
+                    Text("基本設定")
+                })
+                Section(isExpanded: $isExpanded, content: {
+                    GroupBox("Title") {
+                        HStack(content: {
+                            Text("text:")
+                            TextField("Title", text: $inputTitle)
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("size:")
+                            TextField("", value: $selectionTitleFontSize, format: .number)
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("color:")
+                            Rectangle()
+                                .fill(Color(uiColor: $selectionTitleFontColor.uiColor.wrappedValue))
+                                   .frame(width: 17, height: 17, alignment: .center)
+                            Picker("color", selection: $selectionTitleFontColor) {
+                                ForEach(ekColorPreset, id: \.self) { color in
+                                    Text(color.name).tag(color)
+                                }
+                            }
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("weight:")
+                            Picker("weight", selection: $selectionTitleFontWeight) {
+                                ForEach(uiFontPreset, id: \.self) { weight in
+                                    Text("\(weight.rawValue)").tag(weight)
+                                }
+                            }
+                            Spacer()
+                        })
+                    }
+                    GroupBox("Message") {
+                        HStack(content: {
+                            Text("text:")
+                            TextField("Message", text: $inputMessage)
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("size:")
+                            TextField("", value: $selectionMessageFontSize, format: .number)
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("color:")
+                            Rectangle()
+                                .fill(Color(uiColor: $selectionMessageFontColor.uiColor.wrappedValue))
+                                   .frame(width: 17, height: 17, alignment: .center)
+                            Picker("color", selection: $selectionMessageFontColor) {
+                                ForEach(ekColorPreset, id: \.self) { color in
+                                    Text(color.name).tag(color)
+                                }
+                            }
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("weight:")
+                            Picker("weight", selection: $selectionMessageFontWeight) {
+                                ForEach(uiFontPreset, id: \.self) { weight in
+                                    Text("\(weight.rawValue)").tag(weight)
+                                }
+                            }
+                            Spacer()
+                        })
+                    }
+                  
+                }, header: {
+                    Text("詳細設定")
+                })
             }
+            .listStyle(.sidebar)
         }
+        Button("Display Entry"){
+            let attributes = getAttributes()
+            let contentView = getContentView()
+            SwiftEntryKit.display(entry: contentView, using: attributes)
+        }
+        .buttonStyle(.borderedProminent)
+        .padding()
     }
     
+    private func getAttributes() -> EKAttributes {
+        var attributes = $selectionEKAttributePreset.attributes.wrappedValue
+        
+        attributes.entryBackground = .gradient(
+            gradient: .init(colors: [EKColor(.red), EKColor(.green)], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))
+        )
+        attributes.popBehavior = .animated(
+            animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7))
+        )
+        attributes.shadow = .active(with: .init(color: .black, opacity: 0.5, radius: 10, offset: .zero))
+        attributes.statusBar = .dark
+        attributes.scroll = .enabled(swipeable: true, pullbackAnimation: .jolt)
+        let minEdge = min(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
+        attributes.positionConstraints.maxSize = .init(width: .constant(value: minEdge), height: .intrinsic)
+        
+        return attributes
+    }
     
+    private func getContentView() -> EKNotificationMessageView {
+        let title = EKProperty.LabelContent(
+            text: inputTitle,
+            style: .init(
+                font: UIFont.systemFont(
+                    ofSize: CGFloat(selectionTitleFontSize),
+                    weight: selectionTitleFontWeight
+                ),
+                color: selectionTitleFontColor.color)
+            )
+        let description = EKProperty.LabelContent(
+            text: inputMessage,
+            style: .init(
+                font: UIFont.systemFont(
+                    ofSize: CGFloat(selectionMessageFontSize),
+                    weight: selectionMessageFontWeight
+                ),
+                color: selectionMessageFontColor.color)
+            )
+        let imageName = "sample.png"
+        let image = EKProperty.ImageContent(image: UIImage(named: imageName)!, size: CGSize(width: 35, height: 35))
+        
+        let simpleMessage = EKSimpleMessage(image: image, title: title, description: description)
+        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
 
+        let contentView = EKNotificationMessageView(with: notificationMessage)
+        
+        return contentView
+    }
 }
+
 
 #Preview {
     ContentView()

@@ -17,6 +17,9 @@
 		B61B5F142BC9ABCF000DF47F /* swiftEntryKitSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B5F132BC9ABCF000DF47F /* swiftEntryKitSampleTests.swift */; };
 		B61B5F1E2BC9ABCF000DF47F /* swiftEntryKitSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B5F1D2BC9ABCF000DF47F /* swiftEntryKitSampleUITests.swift */; };
 		B61B5F202BC9ABCF000DF47F /* swiftEntryKitSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B5F1F2BC9ABCF000DF47F /* swiftEntryKitSampleUITestsLaunchTests.swift */; };
+		B6C4ADA82BCA8D0D00D15948 /* EKAttributePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C4ADA72BCA8D0D00D15948 /* EKAttributePreset.swift */; };
+		B6C4ADAA2BCAC41C00D15948 /* EKColorPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C4ADA92BCAC41C00D15948 /* EKColorPreset.swift */; };
+		B6C4ADAC2BCADED300D15948 /* UIFontPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C4ADAB2BCADED300D15948 /* UIFontPreset.swift */; };
 		FEF33DB341E533389CCB2637 /* Pods_swiftEntryKitSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792C538D2B8124616BCB9864 /* Pods_swiftEntryKitSample.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +58,9 @@
 		B61B5F192BC9ABCF000DF47F /* swiftEntryKitSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftEntryKitSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61B5F1D2BC9ABCF000DF47F /* swiftEntryKitSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftEntryKitSampleUITests.swift; sourceTree = "<group>"; };
 		B61B5F1F2BC9ABCF000DF47F /* swiftEntryKitSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftEntryKitSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B6C4ADA72BCA8D0D00D15948 /* EKAttributePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributePreset.swift; sourceTree = "<group>"; };
+		B6C4ADA92BCAC41C00D15948 /* EKColorPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKColorPreset.swift; sourceTree = "<group>"; };
+		B6C4ADAB2BCADED300D15948 /* UIFontPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontPreset.swift; sourceTree = "<group>"; };
 		B8EE1E66B47C5753F7A34131 /* Pods-swiftEntryKitSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftEntryKitSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-swiftEntryKitSampleTests/Pods-swiftEntryKitSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C9102C886734C2960F43A71B /* Pods-swiftEntryKitSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftEntryKitSample.debug.xcconfig"; path = "Target Support Files/Pods-swiftEntryKitSample/Pods-swiftEntryKitSample.debug.xcconfig"; sourceTree = "<group>"; };
 		D37DABD5C0D08845722AA209 /* Pods_swiftEntryKitSample_swiftEntryKitSampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swiftEntryKitSample_swiftEntryKitSampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +131,10 @@
 			children = (
 				B61B5F002BC9ABCE000DF47F /* swiftEntryKitSampleApp.swift */,
 				B61B5F022BC9ABCE000DF47F /* ContentView.swift */,
+				B6C4ADA92BCAC41C00D15948 /* EKColorPreset.swift */,
+				B6C4ADAB2BCADED300D15948 /* UIFontPreset.swift */,
 				B61B5F042BC9ABCE000DF47F /* ButtonItem.swift */,
+				B6C4ADA72BCA8D0D00D15948 /* EKAttributePreset.swift */,
 				B61B5F062BC9ABCF000DF47F /* Assets.xcassets */,
 				B61B5F082BC9ABCF000DF47F /* Preview Content */,
 			);
@@ -167,7 +176,6 @@
 				B8EE1E66B47C5753F7A34131 /* Pods-swiftEntryKitSampleTests.debug.xcconfig */,
 				3B47D0F54D3E8E0962B4C01B /* Pods-swiftEntryKitSampleTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -410,6 +418,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B61B5F032BC9ABCE000DF47F /* ContentView.swift in Sources */,
+				B6C4ADAC2BCADED300D15948 /* UIFontPreset.swift in Sources */,
+				B6C4ADAA2BCAC41C00D15948 /* EKColorPreset.swift in Sources */,
+				B6C4ADA82BCA8D0D00D15948 /* EKAttributePreset.swift in Sources */,
 				B61B5F052BC9ABCE000DF47F /* ButtonItem.swift in Sources */,
 				B61B5F012BC9ABCE000DF47F /* swiftEntryKitSampleApp.swift in Sources */,
 			);
