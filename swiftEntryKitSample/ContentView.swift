@@ -10,18 +10,16 @@ import SwiftEntryKit
 
 struct ContentView: View {
     
-    // default値
+    // default value
     static let defaultFontSize: Int = 17;
     static let defaultFontColor: EKColorPreset = ekColorPreset.first!
     static let defaultFontWeight: UIFont.Weight = .medium
     static let defaultImageSize: Int = 40;
-
-    // 基本設定
+    // basic
     @State var inputTitle = "Title"
     @State var inputMessage = "Message"
     @State var isImage = true
-    
-    // 詳細設定
+    // advance
     @State var selectionEKAttributePreset: EKAttributePreset = ekAttributesPresets.first!
     @State var selectionTitleFontSize: Int = defaultFontSize
     @State var selectionTitleFontColor: EKColorPreset = defaultFontColor
@@ -155,7 +153,7 @@ struct ContentView: View {
                     })
                    
                 }, header: {
-                    Text("other")
+                    Text("Other")
                 })
             }
             .listStyle(.sidebar)
@@ -218,11 +216,11 @@ struct ContentView: View {
     }
     
     private func reset() -> Void {
-        // 基本設定
+        // basic
         inputTitle = "Title"
         inputMessage = "Message"
         isImage = false
-        // 詳細設定
+        // advance
         self.selectionEKAttributePreset = ekAttributesPresets.first!
         selectionTitleFontSize = ContentView.defaultFontSize
         selectionTitleFontColor = ContentView.defaultFontColor
@@ -236,11 +234,11 @@ struct ContentView: View {
     }
     
     private func example() -> Void {
-        // 基本設定
+        // basic
         inputTitle = "ExampleTitle"
         inputMessage = "ExampleMessage"
         isImage = true
-        // 詳細設定
+        // advance
         self.selectionEKAttributePreset = ekAttributesPresets[2]
         selectionTitleFontSize = ContentView.defaultFontSize
         selectionTitleFontColor = ContentView.defaultFontColor

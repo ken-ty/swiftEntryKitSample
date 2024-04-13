@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-// UIFont を list 化した
+/// Convert UIFont to list
 public let uiFontPreset: [UIFont.Weight] = [
     UIFont.Weight.black,
     UIFont.Weight.bold,

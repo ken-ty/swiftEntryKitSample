@@ -34,7 +34,7 @@ extension EKColorPreset: Hashable {
     }
 }
 
-/// UIColors の名前付き color を EKColor に変換して list 化した
+/// Convert the named UIColor to EKColor and make it a list
 public let ekColorPreset: [EKColorPreset]  = [
     EKColorPreset(name: "black", uiColor: UIColor.black),
     EKColorPreset(name: "darkGray", uiColor: UIColor.darkGray),

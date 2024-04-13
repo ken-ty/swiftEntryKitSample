@@ -31,7 +31,7 @@ extension EKAttributePreset: Hashable {
     }
 }
 
-/// EKAttributes+Presets.swift の var を list 化した
+/// Convert EKAttributes+Presets.swift var to list
 public let ekAttributesPresets: [EKAttributePreset]  = [
     EKAttributePreset(name: "default", attributes: EKAttributes()),
     EKAttributePreset(name: "toast", attributes: EKAttributes.toast),
