@@ -131,6 +131,17 @@ struct ContentView: View {
                         })
                         Image(uiImage: UIImage(named: "sample.png")!)
                     }
+                    GroupBox("Attribute") {
+                        HStack(content: {
+                            Text("Attribute Preset:")
+                            Picker("Attribute Preset", selection: $selectionEKAttributePreset) {
+                                ForEach(ekAttributesPresets, id: \.self) { attribute in
+                                    Text(attribute.name).tag(attribute)
+                                }
+                            }
+                            Spacer()
+                        })
+                    }
                   
                 }, header: {
                     Text("Advance")
@@ -168,8 +179,8 @@ struct ContentView: View {
     }
     
     private func getAttributes() -> EKAttributes {
-        var attributes = $selectionEKAttributePreset.attributes.wrappedValue
-        
+        var attributes = selectionEKAttributePreset.attributes
+        // TODO: ここら辺も調整できるようにする
         attributes.entryBackground = .gradient(
             gradient: .init(colors: [EKColor(.red), EKColor(.green)], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))
         )
