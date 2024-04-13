@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: c0b6984053d2c7cb8f02e29971666fcb129cb73b
+PODS:
+  - SwiftEntryKit (2.0.0)
+
+DEPENDENCIES:
+  - SwiftEntryKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SwiftEntryKit
+
+SPEC CHECKSUMS:
+  SwiftEntryKit: 61b5fa36f34a97dd8013e48a7345bc4c4720be9a
+
+PODFILE CHECKSUM: 2923f9345617ddf6d34bf69d69d6231bb75d1657
 
 COCOAPODS: 1.15.2
