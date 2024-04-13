@@ -48,7 +48,7 @@ struct ContentView: View {
                         }
                     }
                 }, header: {
-                    Text("基本設定")
+                    Text("Basic")
                 })
                 Section(isExpanded: $isExpanded, content: {
                     GroupBox("Title") {
@@ -135,17 +135,27 @@ struct ContentView: View {
                     }
                   
                 }, header: {
-                    Text("詳細設定")
+                    Text("Advance")
+                })
+                Section(content: {
+                    Button(action: {
+                        example()
+                    }, label: {
+                        Text("Ex. 1")
+                    })
+                   
+                }, header: {
+                    Text("Example")
                 })
                 Section(content: {
                     Button(action: {
                         reset()
                     }, label: {
-                        Text("リセット")
+                        Text("Reset")
                     })
                    
                 }, header: {
-                    Text("その他")
+                    Text("other")
                 })
             }
             .listStyle(.sidebar)
@@ -214,6 +224,24 @@ struct ContentView: View {
         isImage = false
         // 詳細設定
         self.selectionEKAttributePreset = ekAttributesPresets.first!
+        selectionTitleFontSize = ContentView.defaultFontSize
+        selectionTitleFontColor = ContentView.defaultFontColor
+        selectionTitleFontWeight = ContentView.defaultFontWeight
+        selectionMessageFontSize = ContentView.defaultFontSize
+        selectionMessageFontColor = ContentView.defaultFontColor
+        selectionMessageFontWeight = ContentView.defaultFontWeight
+        inputImageWidth = ContentView.defaultImageSize
+        inputImageHeight = ContentView.defaultImageSize
+        isExpanded = false
+    }
+    
+    private func example() -> Void {
+        // 基本設定
+        inputTitle = "ExampleTitle"
+        inputMessage = "ExampleMessage"
+        isImage = true
+        // 詳細設定
+        self.selectionEKAttributePreset = ekAttributesPresets[2]
         selectionTitleFontSize = ContentView.defaultFontSize
         selectionTitleFontColor = ContentView.defaultFontColor
         selectionTitleFontWeight = ContentView.defaultFontWeight
