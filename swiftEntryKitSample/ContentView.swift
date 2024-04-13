@@ -14,10 +14,12 @@ struct ContentView: View {
     static let defaultFontSize: Int = 17;
     static let defaultFontColor: EKColorPreset = ekColorPreset.first!
     static let defaultFontWeight: UIFont.Weight = .medium
+    static let defaultImageSize: Int = 40;
 
     // 基本設定
     @State var inputTitle = "Title"
     @State var inputMessage = "Message"
+    @State var isImage = true
     
     // 詳細設定
     @State var selectionEKAttributePreset: EKAttributePreset = ekAttributesPresets.first!
@@ -27,6 +29,8 @@ struct ContentView: View {
     @State var selectionMessageFontSize: Int = defaultFontSize
     @State var selectionMessageFontColor: EKColorPreset = defaultFontColor
     @State var selectionMessageFontWeight: UIFont.Weight = defaultFontWeight
+    @State var inputImageWidth: Int = defaultImageSize
+    @State var inputImageHeight: Int = defaultImageSize
     @State var isExpanded: Bool = false
     
     var body: some View {
@@ -35,6 +39,9 @@ struct ContentView: View {
                 Section(content: {
                     TextField("Title", text: $inputTitle)
                     TextField("Message", text: $inputMessage)
+                    Toggle(isOn: $isImage, label: {
+                        Text("Image")
+                    })
                     Picker("Attribute Preset", selection: $selectionEKAttributePreset) {
                         ForEach(ekAttributesPresets, id: \.self) { attribute in
                             Text(attribute.name).tag(attribute)
@@ -110,9 +117,35 @@ struct ContentView: View {
                             Spacer()
                         })
                     }
+                    GroupBox("Image") {
+                        Toggle(isOn: $isImage, label: {
+                            Text("available:")
+                        })
+                        HStack(content: {
+                            Text("width:")
+                            TextField("", value: $inputImageWidth, format: .number)
+                            Spacer()
+                        })
+                        HStack(content: {
+                            Text("height:")
+                            TextField("", value: $inputImageHeight, format: .number)
+                            Spacer()
+                        })
+                        Image(uiImage: UIImage(named: "sample.png")!)
+                    }
                   
                 }, header: {
                     Text("詳細設定")
+                })
+                Section(content: {
+                    Button(action: {
+                        reset()
+                    }, label: {
+                        Text("リセット")
+                    })
+                   
+                }, header: {
+                    Text("その他")
                 })
             }
             .listStyle(.sidebar)
@@ -163,15 +196,33 @@ struct ContentView: View {
                 ),
                 color: selectionMessageFontColor.color)
             )
-        let imageName = "sample.png"
-        let image = EKProperty.ImageContent(image: UIImage(named: imageName)!, size: CGSize(width: 35, height: 35))
-        
-        let simpleMessage = EKSimpleMessage(image: image, title: title, description: description)
-        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
-
-        let contentView = EKNotificationMessageView(with: notificationMessage)
-        
-        return contentView
+        let image = EKProperty.ImageContent(
+            image: UIImage(named: "sample.png")!,
+            size: CGSize(width: inputImageWidth, height: inputImageHeight)
+        )
+        return EKNotificationMessageView(with: EKNotificationMessage(simpleMessage: EKSimpleMessage(
+            image: isImage ? image : nil,
+            title: title,
+            description: description
+        )))
+    }
+    
+    private func reset() -> Void {
+        // 基本設定
+        inputTitle = "Title"
+        inputMessage = "Message"
+        isImage = false
+        // 詳細設定
+        self.selectionEKAttributePreset = ekAttributesPresets.first!
+        selectionTitleFontSize = ContentView.defaultFontSize
+        selectionTitleFontColor = ContentView.defaultFontColor
+        selectionTitleFontWeight = ContentView.defaultFontWeight
+        selectionMessageFontSize = ContentView.defaultFontSize
+        selectionMessageFontColor = ContentView.defaultFontColor
+        selectionMessageFontWeight = ContentView.defaultFontWeight
+        inputImageWidth = ContentView.defaultImageSize
+        inputImageHeight = ContentView.defaultImageSize
+        isExpanded = false
     }
 }
 
